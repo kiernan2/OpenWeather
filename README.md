@@ -1,31 +1,29 @@
-# (Application Name)
+# OpenWeather
 
-#### (Brief Description of Application)
+#### Gets weather data through the open weather API
 
-#### By (Your Name Here)
+#### By Kiernan Beattie
 
 ## Technologies Used
 
-* _List all_
-* _the major technologies_
-* _you used in your project_
-* _here_
+* _HTML_
+* _CSS_
+* _JavaScript_
+* _API_
 
 ## Description
 
 ## Setup/Installation Requirements
 
-* _This is a great place_
-* _to list setup instructions_
-* _in a simple_
-* _easy-to-understand_
-* _format_
+* _Clone this repo_
+* _Open in terminal_
+* _Run NPM install_
+* _Run NPM start_
 
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
-
 ## License
+
+* _MIT_
 
 ## Contact Information
