@@ -30,28 +30,51 @@ $(document).ready(function() {
     $('#location').val("");
     $('#latitude').val("");
     $('#longitude').val("");
-    let request = new XMLHttpRequest();
-    let url = '';
-    if (mode === 'city') {
-      url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
-    }
-    else if (mode === 'lat-lon') {
-      url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.API_KEY}`;
-    }
 
-    request.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        const response = JSON.parse(this.responseText);
-        getElements(response);
+    let promise = new Promise(function(resolve, reject) {
+      let request = new XMLHttpRequest();
+      let url = '';
+      if (mode === 'city') {
+        url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
       }
-    };
+      else if (mode === 'lat-lon') {
+        url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.API_KEY}`;
+      }
 
-    request.open("GET", url, true);
-    request.send();
+      request.onload = function() {
+        if (this.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(request.response);
+        }
+      };
 
-    function getElements(response) {
-      $('.showHumidity').text(`The humidity in ${response.name} is ${response.main.humidity}%`);
-      $('.showTemp').text(`The temperature in Fahrenheit is ${Fahrenheit_Converter(response.main.temp)} Degrees.`);
-    }
+      // request.onreadystatechange = function() {
+      //   if (this.readyState === 4 && this.status === 200) {
+      //     const response = JSON.parse(this.responseText);
+      //     getElements(response);
+      //   }
+      // };
+
+      request.open("GET", url, true);
+      request.send();
+    });
+
+    promise.then(function(response) {
+      const body = JSON.parse(response);
+      $('.showHumidity').text(`The humidity in ${response.name} is ${body.main.humidity}%`);
+      $('.showTemp').text(`The temperature in Kelvins is ${Fahrenheit_Converter(body.main.temp)} degrees.`);
+      $('.showError').text("");
+    }, function(error) {
+      $('.showErrors').text(`There was an error processing your request: ${error}`);
+      $('.showHumidity').text("");
+      $('.showTemp').text("");
+    });
+
+    // function getElements(response) {
+    //   $('.showHumidity').text(`The humidity in ${response.name} is ${response.main.humidity}%`);
+    //   $('.showTemp').text(`The temperature in Fahrenheit is ${Fahrenheit_Converter(response.main.temp)} Degrees.`);
+    // }
+
   });
 });
