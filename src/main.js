@@ -17,32 +17,22 @@ function clearFields() {
   $('.showTemp').text("");
 }
 
+function getElements(response) {
+  if (response.main) {
+    $('.showHumidity').text(`The humidity in ${response.name} is ${response.main.humidity}%`);
+    $('.showTemp').text(`The temperature in Fahrenheit is ${Fahrenheit_Converter(response.main.temp)} degrees.`);
+  } else {
+    $('.showErrors').text(`There was an error: ${response.message}`);
+  }
+}
 
 $(document).ready(function() {
-  let mode = "city";
   $('#weatherLocation').click(function() {
     let city = $('#location').val();
     clearFields();
-    let promise = WeatherService.getWeather(city);
-    console.log(promise)
-    promise.then(function(response) {
-      const body = JSON.parse(response);
-      $('.showHumidity').text(`The humidity in ${city} is ${body.main.humidity}%`);
-      $('.showTemp').text(`The temperature in Fahrenheit is ${Fahrenheit_Converter(body.main.temp)} degrees.`);
-    }, function(error) {
-      $('.showErrors').text(`There was an error processing your request: ${error}`);
-    });
-  });
-
-  $('#radioInput').click(function() {
-    if ($('#city').hasClass('hidden')) {
-      $('#lat-lon').addClass('hidden');
-      $('#city').removeClass('hidden');
-      mode = "city";
-    } else {
-      $('#lat-lon').removeClass('hidden');
-      $('#city').addClass('hidden');
-      mode = "lat-lon";
-    }
+    WeatherService.getWeather(city)
+      .then(function(response) {
+        getElements(response);
+      });
   });
 });
