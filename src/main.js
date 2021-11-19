@@ -26,13 +26,15 @@ function getElements(response) {
   }
 }
 
+async function makeApiCall(city) {
+  const response = await WeatherService.getWeather(city);
+  getElements(response);
+}
+
 $(document).ready(function() {
   $('#weatherLocation').click(function() {
     let city = $('#location').val();
     clearFields();
-    WeatherService.getWeather(city)
-      .then(function(response) {
-        getElements(response);
-      });
+    makeApiCall(city);
   });
 });
