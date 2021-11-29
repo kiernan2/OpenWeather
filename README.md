@@ -17,6 +17,7 @@
 
 * _Clone this repo_
 * _Open in terminal_
+* _Create a .env file with API key_
 * _Run NPM install_
 * _Run NPM start_
 
@@ -27,3 +28,4 @@
 * _MIT_
 
 ## Contact Information
+Kiernan1994@gmail.com
