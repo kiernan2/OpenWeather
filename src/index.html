@@ -5,27 +5,12 @@
 <body>
   <div class="container">
     <h1>Get Weather Conditions From Anywhere!</h1>
-    <div id="radioInput">
-      <label for="city">Toggle input</label>
-    </div>
-
-    <div id="city">
-      <label for="location">Enter a location:</label>
-      <input id="location" type="text">
-    </div>
-
-    <div id="lat-lon" class="hidden">
-      <label for="latitude">Enter a latitude</label>
-      <input id="latitude" type="text">
-    
-      <label for="longitude">Enter a longitude</label>
-      <input id="longitude" type="text">
-    </div>
-
-    <button class="btn-success" id="weatherLocation">Get Current Temperature and Humidity</button>
-    <div class="showErrors"></div>
-    <div class="showHumidity"></div>
-    <div class="showTemp"></div>
+    <label for="location">Enter a location:</label>
+    <input id="location" type="text">
+    <button class="btn-success" id="weatherLocation">Get the weather</button>
+    <div class="weather-description"></div>
+    <div class="show-gif"></div>
+    <div class="show-errors"></div>
   </div>
 </body>
 </html>
